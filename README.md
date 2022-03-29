@@ -27,7 +27,7 @@ This document contains the following details:
 
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D__n Vulnerable Web Application.
 
-Load balancing ensures that the application will be highly _____, in addition to restricting _____ to the network.
+Load balancing ensures that the application will be highly available, in addition to restricting access to the network.
 - _TODO: What aspect of security do load balancers protect? What is the advantage of a jump box?_
 
 Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the _____ and system _____.
@@ -37,16 +37,16 @@ Integrating an ELK server allows users to easily monitor the vulnerable VMs for 
 The configuration details of each machine may be found below.
 _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/remove values from the table_.
 
-|  **NAME**  |            **IP ADDRESS**           | **EXPOSED PORTS** |      **DOCKER CONTAINERS**      |            **ALLOWED IP**           |
-|:----------:|:-----------------------------------:|:-----------------:|:-------------------------------:|:-----------------------------------:|
-| _JUMP BOX_ | PUB: 20.70.26.124<br>PRIV: 10.0.0.4 |         22        |  ANSIBLE, FILEBEAT, METRICBEAT  | 108.168.111.241 SSH<br>10.0.0.4 SSH |
-|  _DVWA-1_  |               10.0.2.4              |         80        |    DVWA, FILEBEAT, METRICBEAT   |             10.0.0.4 SSH            |
-|  _DVWA-2_  |               10.0.2.5              |         80        |    DVWA, FILEBEAT, METRICBEAT   |             10.0.0.4 SSH            |
-|  _DVWA-3_  |               10.0.2.6              |         80        |    DVWA, FILEBEAT, METRICBEAT   |             10.0.0.4 SSH            |
-|   _ELK-1_  |              10.10.1.4              |   5601,9200,5044  | ELK STACK, FILEBEAT, METRICBEAT |             10.0.0.4 SSH            |
-|   _ELK-2_  |              10.10.1.5              |   5601,9200,5044  | ELK STACK, FILEBEAT, METRICBEAT |             10.0.0.4 SSH            |
-|  _LB-DVWA_ |         PUB: 20.213.234.237         |         80        |          HEALTH PROBES          |         108.168.111.241 HTTP        |
-|  _LB-ELK_  |          PUB: 13.77.60.190          |      5601,80      |          HEALTH PROBES          |         108.168.111.241 HTTP        |
+|  **NAME**  |         **IP ADDRESS**         |        **EXPOSED PORTS**       |      **DOCKER CONTAINERS**      |
+|:----------:|:------------------------------:|:------------------------------:|:-------------------------------:|
+| _JUMP BOX_ | PUB:20.70.26.124 PRIV:10.0.0.4 |    22 (108.168.111.241 ONLY)   |  ANSIBLE, FILEBEAT, METRICBEAT  |
+|  _DVWA-1_  |    PUB:LB-DVWA PRIV:10.0.2.4   |        80 (LB-DVWA ONLY)       |    DVWA, FILEBEAT, METRICBEAT   |
+|  _DVWA-2_  |    PUB:LB-DVWA PRIV:10.0.2.5   |        80 (LB-DVWA ONLY)       |    DVWA, FILEBEAT, METRICBEAT   |
+|  _DVWA-3_  |    PUB:LB-DVWA PRIV:10.0.2.6   |        80 (LB-DVWA ONLY)       |    DVWA, FILEBEAT, METRICBEAT   |
+|   _ELK-1_  |    PUB:LB-ELK PRIV:10.10.1.4   |         5601,9200,5044         | ELK STACK, FILEBEAT, METRICBEAT |
+|   _ELK-2_  |    PUB:LB-ELK PRIV:10.10.1.5   |         5601,9200,5044         | ELK STACK, FILEBEAT, METRICBEAT |
+|  _LB-DVWA_ |       PUB:20.213.234.237       |    80 (108.168.111.241 ONLY)   |                                 |
+|  _LB-ELK_  |        PUB:52.243.67.47        | 5601,80 (108.168.111.241 ONLY) |                                 |
 
 ### Access Policies
 
