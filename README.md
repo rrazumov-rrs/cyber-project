@@ -2,17 +2,17 @@
 
 The files in this repository were used to configure the network depicted below.
 
-![Network Diagram](https://github.com/rrazumov-rrs/rrazumov-rrs/blob/main/Diagrams/ELK_STACK_PROJECT-ORIGINAL.png)
+![Network Diagram](https://github.com/rrazumov-rrs/cyber-project/blob/main/Diagrams/ELK_STACK_PROJECT-BONUS.pngg)
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the _____ file may be used to install only certain pieces of it, such as Filebeat.
 
-_![ansible config file](https://github.com/rrazumov-rrs/rrazumov-rrs/blob/main/)_
-_![ansible hosts file](https://github.com/rrazumov-rrs/rrazumov-rrs/blob/main/)_
+_![ansible config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
+_![ansible hosts file](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
 
-_![ansible dvwa setup playbook](https://github.com/rrazumov-rrs/rrazumov-rrs/blob/main/)_
-_![ansible elk setup playbook](https://github.com/rrazumov-rrs/rrazumov-rrs/blob/main/)_
-_![ansible filebeat setup playbook](https://github.com/rrazumov-rrs/rrazumov-rrs/blob/main/)_
-_![ansible metricbeat setup playbook](https://github.com/rrazumov-rrs/rrazumov-rrs/blob/main/)_
+_![ansible dvwa setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
+_![ansible elk setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
+_![ansible filebeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
+_![ansible metricbeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
 
 This document contains the following details:
 - Description of the Topology
@@ -37,16 +37,16 @@ Integrating an ELK server allows users to easily monitor the vulnerable VMs for 
 The configuration details of each machine may be found below.
 _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/remove values from the table_.
 
-|  **NAME**  |   **FUNCTION**   |            **IP ADDRESS**           | **EXPOSED PORTS** | **OPERATING SYSTEM** |      **DOCKER CONTAINERS**      |            **ALLOWED IP**           |                                      **DESCRIPTION**                                     |
-|:----------:|:----------------:|:-----------------------------------:|:-----------------:|----------------------|:-------------------------------:|:-----------------------------------:|:----------------------------------------------------------------------------------------:|
-| _JUMP BOX_ |    SSH GATEWAY   | PUB: 20.70.26.124<br>PRIV: 10.0.0.4 |         22        |  UBUNTU 20.04 GEN-2  |  ANSIBLE, FILEBEAT, METRICBEAT  | 108.168.111.241 SSH<br>10.0.0.4 SSH | ONLY MACHINE USED FOR SSH FROM EXTERNAL NETWORK<br>ANSIBLE USED TO SSH TO OTHER MACHINES |
-|  _DVWA-1_  |  DVWA WEB SERVER |               10.0.2.4              |         80        |  UBUNTU 20.04 GEN-2  |    DVWA, FILEBEAT, METRICBEAT   |             10.0.0.4 SSH            |                                                                                          |
-|  _DVWA-2_  |  DVWA WEB SERVER |               10.0.2.5              |         80        |  UBUNTU 20.04 GEN-2  |    DVWA, FILEBEAT, METRICBEAT   |             10.0.0.4 SSH            |                                                                                          |
-|  _DVWA-3_  |  DVWA WEB SERVER |               10.0.2.6              |         80        |  UBUNTU 20.04 GEN-2  |    DVWA, FILEBEAT, METRICBEAT   |             10.0.0.4 SSH            |                                                                                          |
-|   _ELK-1_  | ELK STACK SERVER |              10.10.1.4              |   5601,9200,5044  |  UBUNTU 20.04 GEN-2  | ELK STACK, FILEBEAT, METRICBEAT |             10.0.0.4 SSH            |                                                                                          |
-|   _ELK-2_  | ELK STACK SERVER |              10.10.1.5              |   5601,9200,5044  |  UBUNTU 20.04 GEN-2  | ELK STACK, FILEBEAT, METRICBEAT |             10.0.0.4 SSH            |                                                                                          |
-|  _LB-DVWA_ |  LOAD BALANCING  |         PUB: 20.213.234.237         |         80        |           -          |          HEALTH PROBES          |         108.168.111.241 HTTP        |                                                                                          |
-|  _LB-ELK_  |  LOAD BALANCING  |          PUB: 13.77.60.190          |      5601,80      |           -          |          HEALTH PROBES          |         108.168.111.241 HTTP        |                                                                                          |
+|  **NAME**  |            **IP ADDRESS**           | **EXPOSED PORTS** |      **DOCKER CONTAINERS**      |            **ALLOWED IP**           |
+|:----------:|:-----------------------------------:|:-----------------:|:-------------------------------:|:-----------------------------------:|
+| _JUMP BOX_ | PUB: 20.70.26.124<br>PRIV: 10.0.0.4 |         22        |  ANSIBLE, FILEBEAT, METRICBEAT  | 108.168.111.241 SSH<br>10.0.0.4 SSH |
+|  _DVWA-1_  |               10.0.2.4              |         80        |    DVWA, FILEBEAT, METRICBEAT   |             10.0.0.4 SSH            |
+|  _DVWA-2_  |               10.0.2.5              |         80        |    DVWA, FILEBEAT, METRICBEAT   |             10.0.0.4 SSH            |
+|  _DVWA-3_  |               10.0.2.6              |         80        |    DVWA, FILEBEAT, METRICBEAT   |             10.0.0.4 SSH            |
+|   _ELK-1_  |              10.10.1.4              |   5601,9200,5044  | ELK STACK, FILEBEAT, METRICBEAT |             10.0.0.4 SSH            |
+|   _ELK-2_  |              10.10.1.5              |   5601,9200,5044  | ELK STACK, FILEBEAT, METRICBEAT |             10.0.0.4 SSH            |
+|  _LB-DVWA_ |         PUB: 20.213.234.237         |         80        |          HEALTH PROBES          |         108.168.111.241 HTTP        |
+|  _LB-ELK_  |          PUB: 13.77.60.190          |      5601,80      |          HEALTH PROBES          |         108.168.111.241 HTTP        |
 
 ### Access Policies
 
