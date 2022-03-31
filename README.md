@@ -1,30 +1,31 @@
 ## ELK Stack Deployment
 
-This repository contains the following details:
+This document contains the following details:
 - Description of the Topology
-- Network Configuration
-- VM configuration
+- Project Requirements
 - Access Policies
+- VM configuration
+- Ansible Configuration
 - DVWA Configuration
 - ELK Configuration
   - Beats in Use
   - Machines Being Monitored
 - How to Use the Ansible Build
 
+The files in this repository were used to configure the network depicted below. The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D__n Vulnerable Web Application.
+
 
 ### Description of the Topology
-
-The files in this repository were used to configure the network depicted below. The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D__n Vulnerable Web Application.
 
 The following diagram depicts the basic network configuration:
 ![Network Diagram](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/NET-DIAGRAM-ORIGINAL.png)
 
 
-This diagram provides the overview of more advanced configuration. These will be discussed under __EXTRAS__ steps for each section.
+This diagram provides the overview of more advanced configuration. These will be discussed under **EXTRA** steps for each section.
 ![Network Diagram](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/NET-DIAGRAM-EXTRA.png)
 
 
-### General Configuration
+### Project Requirements
 
 For this project we will be creating Azure Resource Group and adding the following resources to it:
 
@@ -39,7 +40,7 @@ For this project we will be creating Azure Resource Group and adding the followi
 - Three(3) public ip addresses
 - One(1) availability set
 
-**Extra setup:**
+**EXTRA setup:**
 - Two(2) virtual networks
 - Two(2) network security groups
 - Six(6) virtual machines
@@ -54,6 +55,52 @@ For this project we will be creating Azure Resource Group and adding the followi
 Note that elk network and dvwa network are created in different regions and in both setup cases would need to have peer connection enabled.
 
 ![Peer Connection](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VNET-PEERING.png)
+
+
+### Access Policies
+
+Next the Network Security Group is configured to control who can access the network resources. The DVWA servers are only allowed to be accessed by the 'home' network that is designated for pentesting.
+
+The following NSG rules are the basic security configuration that needed:
+
+| **PRIORITY** | **PORT** | **PROTOCOL** |     **SOURCE**    | **DESTINATION** | **ACTION** |             **DESCRIPTION**            |
+|:------------:|:--------:|:------------:|:-----------------:|:---------------:|:----------:|:--------------------------------------:|
+|    _3990_    |    80    |      TCP     |  108.168.111.241  |   10.0.2.0/24   |    ALLOW   | ALLOW CONNECTION TO THE WEB SERVERS    |
+|    _3991_    |    80    |      TCP     | AzureLoadBalancer |  VirtualNetwork |    ALLOW   | ALLOW HEALTH PROBES FOR WEB SERVERS    |
+|    _4000_    |    22    |      TCP     |        ANY        |     10.0.0.4    |    ALLOW   | ALLOW SSH CONNECTION TO JBOX           |
+|    _4001_    |    22    |      TCP     |      10.0.0.4     |  VirtualNetwork |    ALLOW   | ALLOW SSH CONNECTION TO OTHER MACHINES |
+
+
+**EXTRA**To further restrict the traffic from external and internal sources we will be modifying the NSG to include additional rule as well as modifying existing one. Here is the resulting NSG for DVWA network:
+
+| **PRIORITY** | **PORT** | **PROTOCOL** |     **SOURCE**    | **DESTINATION** | **ACTION** |             **DESCRIPTION**            |
+|:------------:|:--------:|:------------:|:-----------------:|:---------------:|:----------:|:--------------------------------------:|
+|    _3990_    |    80    |      TCP     |  108.168.111.241  |   10.0.2.0/24   |    ALLOW   | ALLOW CONNECTION TO THE WEB SERVERS    |
+|    _3991_    |    80    |      TCP     | AzureLoadBalancer |  VirtualNetwork |    ALLOW   | ALLOW HEALTH PROBES FOR WEB SERVERS    |
+|    _4000_    |    22    |      TCP     |  108.168.111.241  |     10.0.0.4    |    ALLOW   | ALLOW SSH CONNECTION TO JBOX           |
+|    _4001_    |    22    |      TCP     |      10.0.0.4     |  VirtualNetwork |    ALLOW   | ALLOW SSH CONNECTION TO OTHER MACHINES |
+|    _4096_    |    ANY   |      ANY     |        ANY        |       ANY       |    DENY    | DENY ALL TRAFFIC ON VNET               |
+
+
+
+When it comes to the Elk server NSG, the basic configuration would look like the following:
+
+| **PRIORITY** |  **PORT** | **PROTOCOL** |     **SOURCE**    | **DESTINATION** | **ACTION** |             **DESCRIPTION**             |
+|:------------:|:---------:|:------------:|:-----------------:|:---------------:|:----------:|:---------------------------------------:|
+|    _3990_    |    5601   |      TCP     |        ANY        |   10.10.1.0/24  |    ALLOW   | ALLOW CONNECTION TO THE WEB SERVERS     |
+|    _3991_    |    5601   |      TCP     | AzureLoadBalancer |  VirtualNetwork |    ALLOW   | ALLOW HEALTH PROBES FOR WEB SERVERS     |
+|    _4001_    |     22    |      TCP     |      10.0.0.4     |  VirtualNetwork |    ALLOW   | ALLOW SSH CONNECTION TO OTHER MACHINES  |
+
+**EXTRA**To harden the system further some of the rules have been modified and added, here is the results:
+
+| **PRIORITY** |  **PORT** | **PROTOCOL** |     **SOURCE**    | **DESTINATION** | **ACTION** |             **DESCRIPTION**             |
+|:------------:|:---------:|:------------:|:-----------------:|:---------------:|:----------:|:---------------------------------------:|
+|    _3990_    |     80    |      TCP     |  108.168.111.241  |   10.10.1.0/24  |    ALLOW   | ALLOW CONNECTION TO THE WEB SERVERS     |
+|    _3991_    |    5601   |      TCP     | AzureLoadBalancer |  VirtualNetwork |    ALLOW   | ALLOW HEALTH PROBES FOR WEB SERVERS     |
+|    _3992_    | 5601,9200 |      TCP     |   VirtualNetwork  |  VirtualNetwork |    ALLOW   | ALLOW NETWORK TO RECEIVE THE BEATS DATA |
+|    _4001_    |     22    |      TCP     |      10.0.0.4     |  VirtualNetwork |    ALLOW   | ALLOW SSH CONNECTION TO OTHER MACHINES  |
+|    _4096_    |    ANY    |      ANY     |        ANY        |       ANY       |    DENY    | DENY ALL TRAFFIC ON VNET                |
+
 
 ### VM Configuration
 
@@ -77,6 +124,15 @@ Since only **JUMP BOX** is allowed to have ssh connection to other machines on t
 The rest of the machines are being configured from the ansible container that is installed on the jbox. The public key used to ssh on other virtual machines is generated on the jbox inside the ansible container.
 
 
+
+
+
+
+
+### ANSIBLE Configuration
+
+
+
 Docker installation setup:
 - apt -y update
 - apt -y install docker.io
@@ -96,36 +152,6 @@ Ansible extra setup:
 - docker attach jbox
 
 
-### Access Policies
-
-Next the Network Security Group is configured to control who can access the network resources. The DVWA servers are only allowed to be accessed by the 'home' network that is designated for pentesting.
-
-The following NSG rules are the basic security configuration that needed:
-
-| **PRIORITY** | **PORT** | **PROTOCOL** |     **SOURCE**    | **DESTINATION** | **ACTION** |             **DESCRIPTION**            |
-|:------------:|:--------:|:------------:|:-----------------:|:---------------:|:----------:|:--------------------------------------:|
-|    _3990_    |    80    |      TCP     |  108.168.111.241  |   10.0.2.0/24   |    ALLOW   | ALLOW CONNECTION TO THE WEB SERVERS    |
-|    _3991_    |    80    |      TCP     | AzureLoadBalancer |  VirtualNetwork |    ALLOW   | ALLOW HEALTH PROBES FOR WEB SERVERS    |
-|    _4000_    |    22    |      TCP     |        ANY        |     10.0.0.4    |    ALLOW   | ALLOW SSH CONNECTION TO JBOX           |
-|    _4001_    |    22    |      TCP     |      10.0.0.4     |  VirtualNetwork |    ALLOW   | ALLOW SSH CONNECTION TO OTHER MACHINES |
-
-*EXTRA*
-
-To further restrict the traffic from external and internal sources we will be modifying the NSG to include additional rule as well as modifying existing one. Here is the resulting NSG for DVWA network:
-
-| **PRIORITY** | **PORT** | **PROTOCOL** |     **SOURCE**    | **DESTINATION** | **ACTION** |             **DESCRIPTION**            |
-|:------------:|:--------:|:------------:|:-----------------:|:---------------:|:----------:|:--------------------------------------:|
-|    _3990_    |    80    |      TCP     |  108.168.111.241  |   10.0.2.0/24   |    ALLOW   | ALLOW CONNECTION TO THE WEB SERVERS    |
-|    _3991_    |    80    |      TCP     | AzureLoadBalancer |  VirtualNetwork |    ALLOW   | ALLOW HEALTH PROBES FOR WEB SERVERS    |
-|    _4000_    |    22    |      TCP     |  108.168.111.241  |     10.0.0.4    |    ALLOW   | ALLOW SSH CONNECTION TO JBOX           |
-|    _4001_    |    22    |      TCP     |      10.0.0.4     |  VirtualNetwork |    ALLOW   | ALLOW SSH CONNECTION TO OTHER MACHINES |
-|    _4096_    |    ANY   |      ANY     |        ANY        |       ANY       |    DENY    | DENY ALL TRAFFIC ON VNET               |
-
-
-
-
-
-### JBOX Configuration
 ### DVWA Configuration
 ### ELK Configuration
 
