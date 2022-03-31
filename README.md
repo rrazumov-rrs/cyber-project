@@ -1,5 +1,16 @@
 ## Automated ELK Stack Deployment
 
+This repository contains the following details:
+- Description of the Topology
+- VM configuration
+- Access Policies
+- ELK Configuration
+  - Beats in Use
+  - Machines Being Monitored
+- How to Use the Ansible Build
+
+
+
 The files in this repository were used to configure the network depicted below.
 
 The following diagram depicts the basic network configuration:
@@ -12,35 +23,21 @@ This diagram provides the overview of more advanced configuration. These will be
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the config and playbook file may be used to install only certain pieces of it, such as Filebeat.
 
 Ansible configuration files:
-
-_[ansible config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_.
-
-_[ansible hosts file](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_.
+- _[ansible config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
+- _[ansible hosts file](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
 
 Beats configuration files:
-
-_[filebeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/CONFIG/filebeat-config.yml)_.
-
-_[metsicbeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/CONFIG/metricbeat-config.yml)_.
+- _[filebeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS/filebeat-config.yml)_
+- _[metsicbeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS/metricbeat-config.yml)_
 
 Ansible playbooks:
-
-_[ansible dvwa setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_.
-
-_[ansible elk setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_.
-
-_[ansible filebeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_.
-
-_[ansible metricbeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_.
+- _[ansible dvwa setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
+- _[ansible elk setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
+- _[ansible filebeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
+- _[ansible metricbeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
 
 
-This document contains the following details:
-- Description of the Topology
-- Access Policies
-- ELK Configuration
-  - Beats in Use
-  - Machines Being Monitored
-- How to Use the Ansible Build
+
 
 
 ### Description of the Topology
