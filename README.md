@@ -1,17 +1,20 @@
-## Automated ELK Stack Deployment
+## ELK Stack Deployment
 
 This repository contains the following details:
 - Description of the Topology
+- Network Configuration
 - VM configuration
 - Access Policies
+- DVWA Configuration
 - ELK Configuration
   - Beats in Use
   - Machines Being Monitored
 - How to Use the Ansible Build
 
 
+### Description of the Topology
 
-The files in this repository were used to configure the network depicted below.
+The files in this repository were used to configure the network depicted below. The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D__n Vulnerable Web Application.
 
 The following diagram depicts the basic network configuration:
 ![Network Diagram](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/NET-DIAGRAM-ORIGINAL.png)
@@ -20,31 +23,85 @@ The following diagram depicts the basic network configuration:
 This diagram provides the overview of more advanced configuration. These will be discussed under __EXTRAS__ steps for each section.
 ![Network Diagram](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/NET-DIAGRAM-EXTRA.png)
 
+
+### General Configuration
+
+For this project we will be creating Azure Resource Group and adding the following resources to it:
+- Two(2) virtual networks
+- Two(2) network security groups
+- Four(4) virtual machines
+ - One(1) jump box
+ - Two(2) dvwa servers
+ - One(1) elk server
+- One(1) load balancer
+- Three(3) public ip addresses
+- One(1) availability set
+
+
+
+
+### VM Configuration
+
+This section will provide the requirements to 
+
+
+
+
+### Access Policies
+
+Load balancing ensures that the application will be highly available, in addition network security groups will be restricting access to the network. NSG will be allowing the following port to be accessed by the __HOME NETWORK__:
+
+| **PRIORITY** | **PORT** | **PROTOCOL** |     **SOURCE**    | **DESTINATION** | **ACTION** |             **DESCRIPTION**            |
+|:------------:|:--------:|:------------:|:-----------------:|:---------------:|:----------:|:--------------------------------------:|
+|    _3990_    |    80    |      TCP     |  108.168.111.241  |   10.0.2.0/24   |    ALLOW   | ALLOW CONNECTION TO THE WEB SERVERS    |
+|    _3991_    |    80    |      TCP     | AzureLoadBalancer |  VirtualNetwork |    ALLOW   | ALLOW HEALTH PROBES FOR WEB SERVERS    |
+|    _4000_    |    22    |      TCP     |  108.168.111.241  |     10.0.0.4    |    ALLOW   | ALLOW SSH CONNECTION TO JBOX           |
+|    _4001_    |    22    |      TCP     |      10.0.0.4     |  VirtualNetwork |    ALLOW   | ALLOW SSH CONNECTION TO OTHER MACHINES |
+|    _4096_    |    ANY   |      ANY     |        ANY        |       ANY       |    DENY    | DENY ALL TRAFFIC ON VNET               |
+
+Since the DVWA servers are using load balancing, the access to the servers will be through the load balancer's public IP address.
+Ssh only allowed to 
+
+
+
+
+### DVWA Configuration
+### ELK Configuration
+
+
+
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the config and playbook file may be used to install only certain pieces of it, such as Filebeat.
 
+
+
+
+
+
+
 [Ansible](https://github.com/rrazumov-rrs/cyber-project/tree/main/ANSIBLE) configuration files:
-- _[ansible config file](https://github.com/rrazumov-rrs/cyber-project/tree/main/ANSIBLE)_
-- _[ansible hosts file](https://github.com/rrazumov-rrs/cyber-project/tree/main/ANSIBLE)_
+- _[ansible config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/ANSIBLE/ansible.cfg)_
+- _[ansible hosts file](https://github.com/rrazumov-rrs/cyber-project/blob/main/ANSIBLE/hosts)_
 
 [Beats](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS) configuration files:
 - _[filebeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS/filebeat-config.yml)_
 - _[metsicbeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS/metricbeat-config.yml)_
 
 [Ansible](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS) playbooks:
-- _[ansible dvwa setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
-- _[ansible elk setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
-- _[ansible filebeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
-- _[ansible metricbeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+- _[dvwa setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+- _[elk setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+- _[filebeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+- _[metricbeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+- _[upgrade systems playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
 
 
 
 
 
-### Description of the Topology
 
 
 
-The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D__n Vulnerable Web Application.
+
+
 
 Load balancing ensures that the application will be highly available, in addition to restricting access to the network.
 - _TODO: What aspect of security do load balancers protect? What is the advantage of a jump box?_
@@ -67,7 +124,7 @@ _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdow
 |  _LB-DVWA_ |       PUB:20.213.234.237       |    80 (108.168.111.241 ONLY)   |                                 |
 |  _LB-ELK_  |        PUB:52.243.67.47        | 5601,80 (108.168.111.241 ONLY) |                                 |
 
-### Access Policies
+
 
 The machines on the internal network are not exposed to the public Internet. 
 
@@ -88,7 +145,7 @@ A summary of the access policies in place can be found in the table below.
 | _4081_ | 80 | TCP | 108.168.111.241 | 10.0.1.0/24 | ALLOW | HTTP FROM HOME TO DVWA |
 | _4096_ | ANY | ANY | ANY | ANY | DENY | DENY ALL TRAFFIC ON VNET |
 
-### Elk Configuration
+
 
 Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
 - _TODO: What is the main advantage of automating configuration with Ansible?_
