@@ -70,7 +70,11 @@ The sizes can be any of the available in the region, however the following are t
 - DVWA SERVERS: Standard_B1ms
 - ELK SERVERS: Standard_B2s
 
-Since only **JUMP BOX** is allowed to have ssh connection to other machines on the network and the only one to have the publicly accessible ssh connection, this machine will be configured before moving to other machine configuration.
+Since only **JUMP BOX** is allowed to have ssh connection to other machines on the network and the only one to have the publicly accessible ssh connection, this machine will be configured before moving to other machine configuration. Use the ssh public key as the user authentication method.
+
+![Ssh key](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-SSH-KEY.png)
+
+
 
 
 
