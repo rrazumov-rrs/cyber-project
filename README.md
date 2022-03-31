@@ -74,15 +74,33 @@ Since only **JUMP BOX** is allowed to have ssh connection to other machines on t
 
 ![Ssh key](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-SSH-KEY.png)
 
+The rest of the machines are being configured from the ansible container that is installed on the jbox. The public key used to ssh on other virtual machines is generated on the jbox inside the ansible container.
 
 
+Docker installation setup:
+- apt -y update
+- apt -y install docker.io
+- systemctl enable docker
+- systemctl start docker
+- docker pull cyberxsecurity/ansible
+
+Ansible basic setup:
+- docker run -it cybersecurity/ansible:latest bash
+- docker start magical_albatani
+- docker attach magical_albatani
+
+For the extra steps, the ansible container can be given a name in place the random name as well as start the container automatically on system restart.
+
+Ansible extra setup:
+- docker run -it --name jbox --restart always cyberxsecurity/ansible:latest bash
+- docker attach jbox
 
 
 
 
 ### Access Policies
 
-Load balancing ensures that the application will be highly available, in addition network security groups will be restricting access to the network. NSG will be allowing the following port to be accessed by the __HOME NETWORK__:
+Load balancing ensures that the DVWA web server will be highly available, in addition network security groups will be restricting access to the network. NSG will be allowing the following port to be accessed by the __HOME NETWORK__:
 
 | **PRIORITY** | **PORT** | **PROTOCOL** |     **SOURCE**    | **DESTINATION** | **ACTION** |             **DESCRIPTION**            |
 |:------------:|:--------:|:------------:|:-----------------:|:---------------:|:----------:|:--------------------------------------:|
@@ -97,7 +115,7 @@ Ssh only allowed to
 
 
 
-
+### JBOX Configuration
 ### DVWA Configuration
 ### ELK Configuration
 
