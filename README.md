@@ -11,16 +11,24 @@ This diagram provides the overview of more advanced configuration. These will be
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the config and playbook file may be used to install only certain pieces of it, such as Filebeat.
 
-_[ansible config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
-_[ansible hosts file](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
-_[filebeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/CONFIG/filebeat-config.yml)_
-_[metsicbeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/CONFIG/metricbeat-config.yml)_
-.
-.
-_[ansible dvwa setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
-_[ansible elk setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
-_[ansible filebeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
-_[ansible metricbeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
+_[ansible config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_.
+
+_[ansible hosts file](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_.
+
+_[filebeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/CONFIG/filebeat-config.yml)_.
+
+_[metsicbeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/CONFIG/metricbeat-config.yml)_.
+
+--
+
+_[ansible dvwa setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_.
+
+_[ansible elk setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_.
+
+_[ansible filebeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_.
+
+_[ansible metricbeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_.
+
 
 This document contains the following details:
 - Description of the Topology
