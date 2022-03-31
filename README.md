@@ -96,11 +96,22 @@ Ansible extra setup:
 - docker attach jbox
 
 
-
-
 ### Access Policies
 
-Load balancing ensures that the DVWA web server will be highly available, in addition network security groups will be restricting access to the network. NSG will be allowing the following port to be accessed by the __HOME NETWORK__:
+Next the Network Security Group is configured to control who can access the network resources. The DVWA servers are only allowed to be accessed by the 'home' network that is designated for pentesting.
+
+The following NSG rules are the basic security configuration that needed:
+
+| **PRIORITY** | **PORT** | **PROTOCOL** |     **SOURCE**    | **DESTINATION** | **ACTION** |             **DESCRIPTION**            |
+|:------------:|:--------:|:------------:|:-----------------:|:---------------:|:----------:|:--------------------------------------:|
+|    _3990_    |    80    |      TCP     |  108.168.111.241  |   10.0.2.0/24   |    ALLOW   | ALLOW CONNECTION TO THE WEB SERVERS    |
+|    _3991_    |    80    |      TCP     | AzureLoadBalancer |  VirtualNetwork |    ALLOW   | ALLOW HEALTH PROBES FOR WEB SERVERS    |
+|    _4000_    |    22    |      TCP     |        ANY        |     10.0.0.4    |    ALLOW   | ALLOW SSH CONNECTION TO JBOX           |
+|    _4001_    |    22    |      TCP     |      10.0.0.4     |  VirtualNetwork |    ALLOW   | ALLOW SSH CONNECTION TO OTHER MACHINES |
+
+*EXTRA*
+
+To further restrict the traffic from external and internal sources we will be modifying the NSG to include additional rule as well as modifying existing one. Here is the resulting NSG for DVWA network:
 
 | **PRIORITY** | **PORT** | **PROTOCOL** |     **SOURCE**    | **DESTINATION** | **ACTION** |             **DESCRIPTION**            |
 |:------------:|:--------:|:------------:|:-----------------:|:---------------:|:----------:|:--------------------------------------:|
@@ -110,8 +121,7 @@ Load balancing ensures that the DVWA web server will be highly available, in add
 |    _4001_    |    22    |      TCP     |      10.0.0.4     |  VirtualNetwork |    ALLOW   | ALLOW SSH CONNECTION TO OTHER MACHINES |
 |    _4096_    |    ANY   |      ANY     |        ANY        |       ANY       |    DENY    | DENY ALL TRAFFIC ON VNET               |
 
-Since the DVWA servers are using load balancing, the access to the servers will be through the load balancer's public IP address.
-Ssh only allowed to 
+
 
 
 
@@ -123,9 +133,10 @@ Ssh only allowed to
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the config and playbook file may be used to install only certain pieces of it, such as Filebeat.
 
+Load balancing ensures that the DVWA web server will be highly available, in addition network security groups will be restricting access to the network.
 
-
-
+Since the DVWA servers are using load balancing, the access to the servers will be through the load balancer's public IP address.
+Ssh only allowed to 
 
 
 
