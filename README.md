@@ -2,9 +2,14 @@
 
 The files in this repository were used to configure the network depicted below.
 
-![Network Diagram](https://github.com/rrazumov-rrs/cyber-project/blob/main/Diagrams/ELK_STACK_PROJECT-BONUS.png)
+The following diagram depicts the basic network configuration:
+![Network Diagram](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/NET-DIAGRAM-ORIGINAL.png)
 
-These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the _____ file may be used to install only certain pieces of it, such as Filebeat.
+
+This diagram provides the overview of more advanced configuration. These will be discussed under __EXTRAS__ steps for each section.
+![Network Diagram](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/NET-DIAGRAM-EXTRA.png)
+
+These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the config and playbook file may be used to install only certain pieces of it, such as Filebeat.
 
 _![ansible config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
 _![ansible hosts file](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
@@ -24,6 +29,8 @@ This document contains the following details:
 
 
 ### Description of the Topology
+
+
 
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D__n Vulnerable Web Application.
 
