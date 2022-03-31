@@ -102,11 +102,18 @@ When it comes to the Elk server NSG, the basic configuration would look like the
 |    _4096_    |    ANY    |      ANY     |        ANY        |       ANY       |    DENY    | DENY ALL TRAFFIC ON VNET                |
 
 
-### VM Configuration
+### SSH Key Configuration
 
 For this project, the key-based ssh authentication is used and first step is to generate ssh keypair:
 
 ![Ssh Keygen](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/SSH-KEYGEN.png)
+
+![Ssh key](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-SSH-KEY.png)
+
+The rest of the machines are being configured from the ansible container that is installed on the jbox. The public key used to ssh on other virtual machines is generated on the jbox inside the ansible container.
+
+
+### VM configuration
 
 The are three options for the VM sizes that we are using on the network.
 
@@ -118,14 +125,6 @@ The sizes can be any of the available in the region, however the following are t
 - ELK SERVERS: Standard_B2s
 
 Since only **JUMP BOX** is allowed to have ssh connection to other machines on the network and the only one to have the publicly accessible ssh connection, this machine will be configured before moving to other machine configuration. Use the ssh public key as the user authentication method.
-
-![Ssh key](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-SSH-KEY.png)
-
-The rest of the machines are being configured from the ansible container that is installed on the jbox. The public key used to ssh on other virtual machines is generated on the jbox inside the ansible container.
-
-
-
-
 
 
 
