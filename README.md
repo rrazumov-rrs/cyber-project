@@ -27,6 +27,8 @@ This diagram provides the overview of more advanced configuration. These will be
 ### General Configuration
 
 For this project we will be creating Azure Resource Group and adding the following resources to it:
+
+**Basic setup:**
 - Two(2) virtual networks
 - Two(2) network security groups
 - Four(4) virtual machines
@@ -37,12 +39,24 @@ For this project we will be creating Azure Resource Group and adding the followi
 - Three(3) public ip addresses
 - One(1) availability set
 
+**Extra setup:**
+- Two(2) virtual networks
+- Two(2) network security groups
+- Six(6) virtual machines
+  - One(1) jump box
+  - Three(3) dvwa servers
+  - Two(2) elk server
+- Two(2) load balancer
+- Three(3) public ip addresses
+- Two(2) availability set
+- Two(2) DNS records
 
-
+Note that elk network and dvwa network are created in different regions and in both setup cases would need to have peer connection enabled.
+![Peer Connection](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VNET-PEER.png)
 
 ### VM Configuration
 
-This section will provide the requirements to 
+
 
 
 
