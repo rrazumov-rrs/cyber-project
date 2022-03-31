@@ -30,9 +30,9 @@ For this project we will be creating Azure Resource Group and adding the followi
 - Two(2) virtual networks
 - Two(2) network security groups
 - Four(4) virtual machines
- - One(1) jump box
- - Two(2) dvwa servers
- - One(1) elk server
+  - One(1) jump box
+  - Two(2) dvwa servers
+  - One(1) elk server
 - One(1) load balancer
 - Three(3) public ip addresses
 - One(1) availability set
