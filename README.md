@@ -13,6 +13,9 @@ These files have been tested and used to generate a live ELK deployment on Azure
 
 _![ansible config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
 _![ansible hosts file](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
+_![filebeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/CONFIG/filebeat-config.yml)_
+_![metsicbeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/CONFIG/metricbeat-config.yml)_.
+.
 
 _![ansible dvwa setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
 _![ansible elk setup playbook](https://github.com/rrazumov-rrs/cyber-project/blob/main/)_
