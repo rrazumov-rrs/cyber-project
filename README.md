@@ -112,6 +112,8 @@ For this project, the key-based ssh authentication is used and first step is to 
 
 The rest of the machines are being configured from the ansible container that is installed on the jbox. The public key used to ssh on other virtual machines is generated on the jbox inside the ansible container.
 
+The virtual machines can be setup 
+
 
 ### VM configuration
 
@@ -124,8 +126,11 @@ The sizes can be any of the available in the region, however the following are t
 - DVWA SERVERS: Standard_B1ms
 - ELK SERVERS: Standard_B2s
 
-Since only **JUMP BOX** is allowed to have ssh connection to other machines on the network and the only one to have the publicly accessible ssh connection, this machine will be configured before moving to other machine configuration. Use the ssh public key as the user authentication method.
+![Vm Size](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-SSH-KEY.png)
 
+![Vm Size](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-AVAILABILITY.png)
+
+![Vm Size](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-NETWORK.png)
 
 
 ### ANSIBLE Configuration
@@ -152,7 +157,15 @@ Ansible extra setup:
 
 
 ### DVWA Configuration
+
+
 ### ELK Configuration
+
+
+### Target Machines & Beats
+
+
+### Using the Playbook
 
 
 
@@ -163,7 +176,7 @@ Load balancing ensures that the DVWA web server will be highly available, in add
 Since the DVWA servers are using load balancing, the access to the servers will be through the load balancer's public IP address.
 Ssh only allowed to 
 
-
+Since only **JUMP BOX** is allowed to have ssh connection to other machines on the network and the only one to have the publicly accessible ssh connection, this machine will be configured before moving to other machine configuration. Use the ssh public key as the user authentication method.
 
 [Ansible](https://github.com/rrazumov-rrs/cyber-project/tree/main/ANSIBLE) configuration files:
 - _[ansible config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/ANSIBLE/ansible.cfg)_
@@ -246,7 +259,7 @@ The following screenshot displays the result of running `docker ps` after succes
 
 ![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
 
-### Target Machines & Beats
+
 This ELK server is configured to monitor the following machines:
 - _TODO: List the IP addresses of the machines you are monitoring_
 
@@ -256,7 +269,7 @@ We have installed the following Beats on these machines:
 These Beats allow us to collect the following information from each machine:
 - _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
 
-### Using the Playbook
+
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
