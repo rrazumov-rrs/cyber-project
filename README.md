@@ -52,7 +52,7 @@ For this project we will be creating Azure Resource Group and adding the followi
 - Two(2) DNS records
 
 Note that elk network and dvwa network are created in different regions and in both setup cases would need to have peer connection enabled.
-![Peer Connection](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VNET-PEER.png)
+![Peer Connection](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VNET-PEERING.png)
 
 ### VM Configuration
 
