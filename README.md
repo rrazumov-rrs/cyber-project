@@ -52,10 +52,25 @@ For this project we will be creating Azure Resource Group and adding the followi
 - Two(2) DNS records
 
 Note that elk network and dvwa network are created in different regions and in both setup cases would need to have peer connection enabled.
+
 ![Peer Connection](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VNET-PEERING.png)
 
 ### VM Configuration
 
+For this project, the key-based ssh authentication is used and first step is to generate ssh keypair:
+
+![Ssh Keygen](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/SSH-KEYGEN.png)
+
+The are three options for the VM sizes that we are using on the network.
+
+![Vm Size](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-SIZES.png)
+
+The sizes can be any of the available in the region, however the following are the minimum requirements for each of the machines:
+- JUMP BOX: Standard_B1s
+- DVWA SERVERS: Standard_B1ms
+- ELK SERVERS: Standard_B2s
+
+Since only **JUMP BOX** is allowed to have ssh connection to other machines on the network and the only one to have the publicly accessible ssh connection, this machine will be configured before moving to other machine configuration.
 
 
 
