@@ -71,7 +71,7 @@ The following NSG rules are the basic security configuration that needed:
 |    _4001_    |    22    |      TCP     |      10.0.0.4     |  VirtualNetwork |    ALLOW   | ALLOW SSH CONNECTION TO OTHER MACHINES |
 
 
-**EXTRA**To further restrict the traffic from external and internal sources we will be modifying the NSG to include additional rule as well as modifying existing one. Here is the resulting NSG for DVWA network:
+**EXTRA** - To further restrict the traffic from external and internal sources we will be modifying the NSG to include additional rule as well as modifying existing one. Here is the resulting NSG for DVWA network:
 
 | **PRIORITY** | **PORT** | **PROTOCOL** |     **SOURCE**    | **DESTINATION** | **ACTION** |             **DESCRIPTION**            |
 |:------------:|:--------:|:------------:|:-----------------:|:---------------:|:----------:|:--------------------------------------:|
@@ -91,7 +91,7 @@ When it comes to the Elk server NSG, the basic configuration would look like the
 |    _3991_    |    5601   |      TCP     | AzureLoadBalancer |  VirtualNetwork |    ALLOW   | ALLOW HEALTH PROBES FOR WEB SERVERS     |
 |    _4001_    |     22    |      TCP     |      10.0.0.4     |  VirtualNetwork |    ALLOW   | ALLOW SSH CONNECTION TO OTHER MACHINES  |
 
-**EXTRA**To harden the system further some of the rules have been modified and added, here is the results:
+**EXTRA** - To harden the system further some of the rules have been modified and added, here is the results:
 
 | **PRIORITY** |  **PORT** | **PROTOCOL** |     **SOURCE**    | **DESTINATION** | **ACTION** |             **DESCRIPTION**             |
 |:------------:|:---------:|:------------:|:-----------------:|:---------------:|:----------:|:---------------------------------------:|
