@@ -97,6 +97,8 @@ When it comes to the Elk server NSG, the basic configuration would look like the
 |    _3991_    |    5601   |      TCP     | AzureLoadBalancer |  VirtualNetwork |    ALLOW   | ALLOW HEALTH PROBES FOR WEB SERVERS     |
 |    _4001_    |     22    |      TCP     |      10.0.0.4     |  VirtualNetwork |    ALLOW   | ALLOW SSH CONNECTION TO OTHER MACHINES  |
 
+**EXTRA** - The Elk requests are set to come through the HTTP port and forwarded to port 5601 by load balancer
+
 **EXTRA** - To harden the system further some of the rules have been modified and added, here is the results:
 
 | **PRIORITY** |  **PORT** | **PROTOCOL** |     **SOURCE**    | **DESTINATION** | **ACTION** |             **DESCRIPTION**             |
@@ -133,19 +135,22 @@ The sizes can be any of the available in the region, however the following are t
 - DVWA SERVERS: Standard_B1ms
 - ELK SERVERS: Standard_B2s
 
-When creating the JBOX machine only settings that are selected, the resource group adn inputting ssh key
+When creating the JBOX machine only settings that are selected, the resource group and inputting ssh key. For DVWA machines we are creating the availability zone, while for Elk machines we are using different region.
+
+**EXTRA** - Create another availability zone for the two elk machines to ensure that the load balancer can be used with this set-up.
 
 ![Vm Availability](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-AVAILABILITY.png)
 
 ![Vm Ssh Key](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-SSH-KEY.png)
 
+Lastly, in the networking option, the virtual network and subnetworks have been selected for the machines and public ip addresses are created for JBOX and ELK machines.
 
+**EXTRA** - When using two elk server machines only JBOX public ip address will be created in this step
 
 ![Vm Network](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-NETWORK.png)
 
 
 
-![Vm Reset](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-RESET.png)
 
 
 ### ANSIBLE Configuration
