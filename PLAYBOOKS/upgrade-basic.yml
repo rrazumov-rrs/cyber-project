@@ -1,0 +1,8 @@
+---
+- hosts: vnet
+  gather_facts: yes
+  tasks:
+    - name: Update APT package cache
+      raw: sudo apt -y update
+    - name: Upgrade APT to the latest packages
+      raw: sudo apt -y upgrade

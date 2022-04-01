@@ -12,8 +12,9 @@ This document contains the following details:
   - Machines Being Monitored
 - How to Use the Ansible Build
 
-The files in this repository were used to configure the network depicted below. The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D__n Vulnerable Web Application.
+The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D__n Vulnerable Web Application.
 
+These files have been tested and used to generate a live DVWA and ELK deployment on Azure. They can be used to either recreate the entire deployment pictured below. Alternatively, select portions of the config and playbook file may be used to install only certain pieces of it, such as Filebeat.
 
 ### Description of the Topology
 
@@ -174,20 +175,43 @@ Last step to ensure that everything is ready for next configurations is to edit 
 - _[ansible config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/ANSIBLE/ansible.cfg)_
 - _[ansible hosts file](https://github.com/rrazumov-rrs/cyber-project/blob/main/ANSIBLE/hosts)_
 
+
+### Using the Playbook
+
+The following example of the Ansible playbook was created to show the syntax of the yml playbook:
+
+Here is the example of [Basic](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/upgrade-basic.yml) and [Advanced](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/upgrade-advanced.yml) upgrade playbooks. 
+
+
+
 ### DVWA Configuration
+
+[Ansible](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS) playbooks:
+- _[dvwa setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+- _[elk setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+- _[filebeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+- _[metricbeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+- _[upgrade systems playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
 
 
 ### ELK Configuration
+
+[Ansible](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS) playbooks:
+- _[dvwa setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+- _[elk setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+- _[filebeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+- _[metricbeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+- _[upgrade systems playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
 
 
 ### Target Machines & Beats
 
 
-### Using the Playbook
 
 
 
-These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the config and playbook file may be used to install only certain pieces of it, such as Filebeat.
+
+
 
 Load balancing ensures that the DVWA web server will be highly available, in addition network security groups will be restricting access to the network.
 
@@ -202,12 +226,7 @@ Since only **JUMP BOX** is allowed to have ssh connection to other machines on t
 - _[filebeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS/filebeat-config.yml)_
 - _[metsicbeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS/metricbeat-config.yml)_
 
-[Ansible](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS) playbooks:
-- _[dvwa setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
-- _[elk setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
-- _[filebeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
-- _[metricbeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
-- _[upgrade systems playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+
 
 
 

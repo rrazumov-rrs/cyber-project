@@ -8,7 +8,7 @@ line - 107
 
 The hosts file contains the list of different host groups that will be called by ansible playbook when runnig them. Host groups include the ip addresses of all of the machines that have specific function. 
 
-**EXTRA** - added the 'test' host list of the ranges of machines on the network in the event that the more machines are added to the network. This can also be used to automate some tasks like upgrading the systems
+**EXTRA** - added the 'vnet' host list of the ranges of machines on the network in the event that the more machines are added to the network. This can also be used to automate some tasks like upgrading the systems
 
 /etc/ansible/hosts
 

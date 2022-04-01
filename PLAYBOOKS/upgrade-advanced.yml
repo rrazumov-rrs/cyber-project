@@ -1,0 +1,22 @@
+---
+- hosts: vnet
+  connection: local
+  gather_facts: no
+  tasks:
+    - block:
+        - name: determine hosts that are up
+          wait_for_connection:
+            timeout: 1
+          vars:
+            ansible_connection: ssh
+        - name: add devices with connectivity to the "running_hosts" group
+          group_by:
+            key: "running_hosts"
+
+- hosts: running_hosts
+  gather_facts: no
+  tasks:
+    - name: Update APT package cache
+      raw: sudo apt -y update
+    - name: Upgrade APT to the latest packages
+      raw: sudo apt -y upgrade
