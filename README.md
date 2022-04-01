@@ -153,19 +153,36 @@ Lastly, in the networking option, the virtual network and subnetworks have been 
 
 ### Load Balancer Configuration
 
-Once all of the machines are created th eload balancer is created to distribute the load on the DVWA servers
+Once all of the machines are created th eload balancer is created to distribute the load on the DVWA servers. The basic tier load balancer is being used for this setup
 
 **EXTRA** - Add second load balancer for the elk servers as well.
 
 ![Vm Network](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/LB-TIER.png)
 
+Create the public IP address for the DVWA and ELK to be accees through brower
+
 ![Vm Network](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/LB-PUB-IP.png)
+
+The virtual machines are added to the backend pool for the load balancer to forward the requests to
 
 ![Vm Network](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/LB-BACK-END.png)
 
+The rule can be created at the time of load balancer creation or after the resource was created. For the DVWA servers the rule will be listening on port 80 and forwarding the requests to port 80 as well.
+
 ![Vm Network](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/LB-RULE.png)
 
+Lastly, to ensure that the load balancer is functionig properly, the health probes are added to listen on port 80 to determine if the server available.
+
 ![Vm Network](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/LB-HEALTH.png)
+
+**EXTRA** - in the event that the load balancer is created for the elk servers, the health probes are set to listen on port 5601.
+
+**EXTRA** - additionally, the ELK loadbalancer can be set to receive the requests on port 80 and forward them to port 5601.
+
+
+
+### Public IP Configurations
+
 
 
 ### ANSIBLE Configuration
