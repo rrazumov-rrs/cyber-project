@@ -188,6 +188,8 @@ The following configuration is used to create Domain Name Record for the DVWA an
 
 ### ANSIBLE Configuration
 
+Now that the virtual network is set up and running, the services on the machines are going to be configured. First the JBOX is configured to have ansible docker container runnig to automate the setup of other machines.
+
 Docker installation setup:
 - apt -y update
 - apt -y install docker.io
@@ -206,9 +208,16 @@ Ansible extra setup:
 - docker run -it --name jbox --restart always cyberxsecurity/ansible:latest bash
 - docker attach jbox
 
+Next the ssh key is generated in the ansible container and all of the virtual machines have the ssh key reset in the settings
+
+**EXTRA** - on the JBOX the ssh public key can be appended to the ~/.ssh/authorized_keys
+
+![Vm Reset](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-RESET.png)
+
 Last step to ensure that everything is ready for next configurations is to edit [Ansible](https://github.com/rrazumov-rrs/cyber-project/tree/main/ANSIBLE) configuration files:
 - _[ansible config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/ANSIBLE/ansible.cfg)_
 - _[ansible hosts file](https://github.com/rrazumov-rrs/cyber-project/blob/main/ANSIBLE/hosts)_
+
 
 
 ### Using the Playbook
