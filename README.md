@@ -52,14 +52,20 @@ For this project we will be creating Azure Resource Group and adding the followi
 - Two(2) availability set
 - Two(2) DNS records
 
-Note that elk network and dvwa network are created in different regions and in both setup cases would need to have peer connection enabled.
+
+### Virtual Network Configuration
+
+For this project, two virtual networks have been created in the same resource group, but different resions:
+
+![Peer Connection](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VNET-CREATE.png)
+
+The networks that are created in different regions are unable to communicate to oneanother and the new peering connection between the networks is created to transfer data between the networks:
 
 ![Peer Connection](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VNET-PEERING.png)
 
-
 ### Access Policies
 
-Next the Network Security Group is configured to control who can access the network resources. The DVWA servers are only allowed to be accessed by the 'home' network that is designated for pentesting.
+Next, the networks need to be hardened by creating two Network Security Groups and configuring them to control who can access the network resources. The DVWA servers are only allowed to be accessed by the 'home' network that is designated for pentesting.
 
 The following NSG rules are the basic security configuration that needed:
 
@@ -108,16 +114,17 @@ For this project, the key-based ssh authentication is used and first step is to 
 
 ![Ssh Keygen](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/SSH-KEYGEN.png)
 
-![Ssh key](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-SSH-KEY.png)
 
 The rest of the machines are being configured from the ansible container that is installed on the jbox. The public key used to ssh on other virtual machines is generated on the jbox inside the ansible container.
 
-The virtual machines can be setup 
+The virtual machines can be setup all at once, but the ssh key would need to be reset for the ansible to be able to use the playbooks. Here is the way to do just that:
+
+![Vm Reset](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-RESET.png)
 
 
 ### VM configuration
 
-The are three options for the VM sizes that we are using on the network.
+Next, we have configured virtual machines, all of the machines are created in this step and the same ssh public key is used in the process. The are three options for the VM sizes that we are using on the network.
 
 ![Vm Size](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-SIZES.png)
 
@@ -126,11 +133,19 @@ The sizes can be any of the available in the region, however the following are t
 - DVWA SERVERS: Standard_B1ms
 - ELK SERVERS: Standard_B2s
 
-![Vm Size](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-SSH-KEY.png)
+When creating the JBOX machine only settings that are selected, the resource group adn inputting ssh key
 
-![Vm Size](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-AVAILABILITY.png)
+![Vm Availability](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-AVAILABILITY.png)
 
-![Vm Size](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-NETWORK.png)
+![Vm Ssh Key](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-SSH-KEY.png)
+
+
+
+![Vm Network](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-NETWORK.png)
+
+
+
+![Vm Reset](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-RESET.png)
 
 
 ### ANSIBLE Configuration
