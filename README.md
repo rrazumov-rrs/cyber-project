@@ -150,12 +150,7 @@ Lastly, in the networking option, the virtual network and subnetworks have been 
 ![Vm Network](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-NETWORK.png)
 
 
-
-
-
 ### ANSIBLE Configuration
-
-
 
 Docker installation setup:
 - apt -y update
@@ -175,6 +170,9 @@ Ansible extra setup:
 - docker run -it --name jbox --restart always cyberxsecurity/ansible:latest bash
 - docker attach jbox
 
+Last step to ensure that everything is ready for next configurations is to edit [Ansible](https://github.com/rrazumov-rrs/cyber-project/tree/main/ANSIBLE) configuration files:
+- _[ansible config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/ANSIBLE/ansible.cfg)_
+- _[ansible hosts file](https://github.com/rrazumov-rrs/cyber-project/blob/main/ANSIBLE/hosts)_
 
 ### DVWA Configuration
 
@@ -198,9 +196,7 @@ Ssh only allowed to
 
 Since only **JUMP BOX** is allowed to have ssh connection to other machines on the network and the only one to have the publicly accessible ssh connection, this machine will be configured before moving to other machine configuration. Use the ssh public key as the user authentication method.
 
-[Ansible](https://github.com/rrazumov-rrs/cyber-project/tree/main/ANSIBLE) configuration files:
-- _[ansible config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/ANSIBLE/ansible.cfg)_
-- _[ansible hosts file](https://github.com/rrazumov-rrs/cyber-project/blob/main/ANSIBLE/hosts)_
+
 
 [Beats](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS) configuration files:
 - _[filebeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS/filebeat-config.yml)_
