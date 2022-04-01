@@ -151,6 +151,23 @@ Lastly, in the networking option, the virtual network and subnetworks have been 
 ![Vm Network](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-NETWORK.png)
 
 
+### Load Balancer Configuration
+
+Once all of the machines are created th eload balancer is created to distribute the load on the DVWA servers
+
+**EXTRA** - Add second load balancer for the elk servers as well.
+
+![Vm Network](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/LB-TIER.png)
+
+![Vm Network](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/LB-PUB-IP.png)
+
+![Vm Network](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/LB-BACK-END.png)
+
+![Vm Network](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/LB-RULE.png)
+
+![Vm Network](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/LB-HEALTH.png)
+
+
 ### ANSIBLE Configuration
 
 Docker installation setup:
@@ -183,7 +200,6 @@ The following example of the Ansible playbook was created to show the syntax of 
 Here is the example of [Basic](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/upgrade-basic.yml) and [Advanced](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/upgrade-advanced.yml) upgrade playbooks. 
 
 The main note to take that all of the playbook files atart with three dashes(-) on the top line as well as all indentations are with two spaces.
-
 
 ### DVWA Configuration
 
