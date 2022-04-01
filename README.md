@@ -210,14 +210,13 @@ Ansible extra setup:
 
 Next the ssh key is generated in the ansible container and all of the virtual machines have the ssh key reset in the settings
 
-**EXTRA** - on the JBOX the ssh public key can be appended to the ~/.ssh/authorized_keys
+**EXTRA** - on the JBOX the ssh public key can be appended to the ~/.ssh/authorized_keys file in order to use ansible playbook for all machines on the network.
 
 ![Vm Reset](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-RESET.png)
 
 Last step to ensure that everything is ready for next configurations is to edit [Ansible](https://github.com/rrazumov-rrs/cyber-project/tree/main/ANSIBLE) configuration files:
 - _[ansible config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/ANSIBLE/ansible.cfg)_
 - _[ansible hosts file](https://github.com/rrazumov-rrs/cyber-project/blob/main/ANSIBLE/hosts)_
-
 
 
 ### Using the Playbook
@@ -227,6 +226,7 @@ The following example of the Ansible playbook was created to show the syntax of 
 Here is the example of [Basic](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/upgrade-basic.yml) and [Advanced](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/upgrade-advanced.yml) upgrade playbooks. 
 
 The main note to take that all of the playbook files atart with three dashes(-) on the top line as well as all indentations are with two spaces.
+
 
 ### DVWA Configuration
 
@@ -246,120 +246,3 @@ _[elk setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PL
 
 _[filebeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
 _[metricbeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Load balancing ensures that the application will be highly available, in addition to restricting access to the network.
-- _TODO: What aspect of security do load balancers protect? What is the advantage of a jump box?_
-
-Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the _____ and system _____.
-- _TODO: What does Filebeat watch for?_
-- _TODO: What does Metricbeat record?_
-
-The configuration details of each machine may be found below.
-_Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/remove values from the table_.
-
-|  **NAME**  |         **IP ADDRESS**         |        **EXPOSED PORTS**       |      **DOCKER CONTAINERS**      |
-|:----------:|:------------------------------:|:------------------------------:|:-------------------------------:|
-| _JUMP BOX_ | PUB:20.70.26.124 PRIV:10.0.0.4 |    22 (108.168.111.241 ONLY)   |  ANSIBLE, FILEBEAT, METRICBEAT  |
-|  _DVWA-1_  |    PUB:LB-DVWA PRIV:10.0.2.4   |        80 (LB-DVWA ONLY)       |    DVWA, FILEBEAT, METRICBEAT   |
-|  _DVWA-2_  |    PUB:LB-DVWA PRIV:10.0.2.5   |        80 (LB-DVWA ONLY)       |    DVWA, FILEBEAT, METRICBEAT   |
-|  _DVWA-3_  |    PUB:LB-DVWA PRIV:10.0.2.6   |        80 (LB-DVWA ONLY)       |    DVWA, FILEBEAT, METRICBEAT   |
-|   _ELK-1_  |    PUB:LB-ELK PRIV:10.10.1.4   |         5601,9200,5044         | ELK STACK, FILEBEAT, METRICBEAT |
-|   _ELK-2_  |    PUB:LB-ELK PRIV:10.10.1.5   |         5601,9200,5044         | ELK STACK, FILEBEAT, METRICBEAT |
-|  _LB-DVWA_ |       PUB:20.213.234.237       |    80 (108.168.111.241 ONLY)   |                                 |
-|  _LB-ELK_  |        PUB:52.243.67.47        | 5601,80 (108.168.111.241 ONLY) |                                 |
-
-
-
-The machines on the internal network are not exposed to the public Internet. 
-
-Only the _____ machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- _TODO: Add whitelisted IP addresses_
-
-Machines within the network can only be accessed by _____.
-- _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
-
-A summary of the access policies in place can be found in the table below.
-
-| **PRIORITY** | **PORT** | **PROTOCOL** | **SOURCE** | **DESTINATION** | **ACTION** | **DESCRIPTION** |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| _4070_ | 80 | TCP | AzureLoadBalancer | VirtualNetwork | ALLOW | LOADBALLANCER HEALTH PROBES |
-| _4071_ | 5601,9200 | TCP | VirtualNetwork | VirtualNetwork | ALLOW | SEND STATISTICS TO ELK |
-| _4072_ | 22 | TCP | 10.0.0.4 | 10.0.1.0/24 | ALLOW | SSH FROM JBOX TO DVWA |
-| _4080_ | 22 | TCP | 108.168.111.241 | 10.0.0.4 | ALLOW | SSH FROM HOME TO JBOX |
-| _4081_ | 80 | TCP | 108.168.111.241 | 10.0.1.0/24 | ALLOW | HTTP FROM HOME TO DVWA |
-| _4096_ | ANY | ANY | ANY | ANY | DENY | DENY ALL TRAFFIC ON VNET |
-
-
-
-Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
-- _TODO: What is the main advantage of automating configuration with Ansible?_
-
-The playbook implements the following tasks:
-- _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
-- ...
-
-The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
-
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
-
-
-This ELK server is configured to monitor the following machines:
-- _TODO: List the IP addresses of the machines you are monitoring_
-
-We have installed the following Beats on these machines:
-- _TODO: Specify which Beats you successfully installed_
-
-These Beats allow us to collect the following information from each machine:
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
-
-
-In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
-
-SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
-
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running?
-
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
-
-### Optional configurations
-
-
-The files in this repository were used to configure the network depicted below.
-
-![Network Diagram](https://github.com/rrazumov-rrs/rrazumov-rrs/blob/main/Diagrams/ELK_STACK_PROJECT-BONUS.png)
-
-Changes made:
-
-- Added another elk slack server for redundancy
-- Added both servers on the load balancer with public ip address
-- Load balancer automatically redirects requests on port 80 to port 5601
-- Both DVWA and ELK are accessible not only by ip address, but by FQDN
-
-**Trying to add shorter and more custom FQDN**
