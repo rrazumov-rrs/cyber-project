@@ -182,49 +182,35 @@ The following example of the Ansible playbook was created to show the syntax of 
 
 Here is the example of [Basic](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/upgrade-basic.yml) and [Advanced](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/upgrade-advanced.yml) upgrade playbooks. 
 
+The main note to take that all of the playbook files atart with three dashes(-) on the top line as well as all indentations are with two spaces.
 
 
 ### DVWA Configuration
 
-[Ansible](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS) playbooks:
-- _[dvwa setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
-- _[elk setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
-- _[filebeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
-- _[metricbeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
-- _[upgrade systems playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+_[dvwa setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
 
 
 ### ELK Configuration
 
-[Ansible](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS) playbooks:
-- _[dvwa setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
-- _[elk setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
-- _[filebeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
-- _[metricbeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
-- _[upgrade systems playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+_[elk setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
 
 
-### Target Machines & Beats
-
-
-
-
-
-
-
-
-Load balancing ensures that the DVWA web server will be highly available, in addition network security groups will be restricting access to the network.
-
-Since the DVWA servers are using load balancing, the access to the servers will be through the load balancer's public IP address.
-Ssh only allowed to 
-
-Since only **JUMP BOX** is allowed to have ssh connection to other machines on the network and the only one to have the publicly accessible ssh connection, this machine will be configured before moving to other machine configuration. Use the ssh public key as the user authentication method.
-
-
+### BEATS Configuration
 
 [Beats](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS) configuration files:
 - _[filebeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS/filebeat-config.yml)_
 - _[metsicbeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS/metricbeat-config.yml)_
+
+_[filebeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+_[metricbeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+
+
+
+
+
+
+
+
 
 
 
