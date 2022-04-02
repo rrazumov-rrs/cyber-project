@@ -260,4 +260,5 @@ NOTE: The configuration files are created on ansible machine and will be dropped
 
 Lastly, the _[filebeat setup](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/filebeat-on-dvwa.yml)_ and _[metricbeat setup](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/metric-on-dvwa.yml)_ playbooks are created and have been successfully executed and it is time to check that the beats are working properly.
 
-
+Kibana-new.mp4
+cyber-project/Kibana-new.gif at main · rrazumov-rrs/cyber-project
