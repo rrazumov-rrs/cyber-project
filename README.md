@@ -221,28 +221,43 @@ Last step to ensure that everything is ready for next configurations is to edit 
 
 ### Using the Playbook
 
+One the ansible setup and preparation is complete, the machines need to be configured to use DVWA docker container that is listening for the requests on port 80 as well as Elk server that is listening on ports 5044, 5601, and 9200.
+
+This procedure can be done manually on each server, however, ansible container offers the automation in the form of the playbooks. Additionally, the use of docker containers along with ansible playbooks ensures that every container is set with the same parameters and provide identical performance across the installations.
+
 The following example of the Ansible playbook was created to show the syntax of the yml playbook:
 
 Here is the example of [Basic](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/upgrade-basic.yml) and [Advanced](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/upgrade-advanced.yml) upgrade playbooks. 
 
 The main note to take that all of the playbook files atart with three dashes(-) on the top line as well as all indentations are with two spaces.
 
+![Ansible Tree](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/ANSIBLE-FOLDER-TREE.png)
 
-### DVWA Configuration
+Taking into consideration the structure of the /etc/ansible folder, the command to run upgrade playbook will be:
+- ansible-palybook /etc/ansible/all-vm/upgrade.yml
 
-_[dvwa setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+After running the above command, ansible executes the playbook and runs all of the instructions in the playbook agains the 'host' list that is saved in /etc/ansible/hosts file.
 
+To continue the setup for DVWA and ELK server the [dvwa-setup.yml](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/dvwa-setup.yml) and [install-elk.yml](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/install-elk.yml) playbooks are created and run inside the ansible container. This process might take a little bit of the time and at the end will give similar results.
 
-### ELK Configuration
+![Playbook Execution](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/PLAY-RUN.png)
 
-_[elk setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+As long as the processes completed without any errors, the services are installed and runnig on the correct machines. In order to test that everything is functionning properly, web browser can be used to check both services:
+- DVWA - 20.213.234.237/login.php
+- ELK - 52.243.67.47/app/kibana
 
+**EXTRA** - If the DNS records were created and Elk load balancer was set to listen on port 80, the result of the test will be similar to 
+
+![DVWA web page](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/DVWA-RUNNING.png)
+
+![Kibana web page](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/KIBANA-RUNNING.png)
 
 ### BEATS Configuration
 
-[Beats](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS) configuration files:
-- _[filebeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS/filebeat-config.yml)_
-- _[metsicbeat config file](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS/metricbeat-config.yml)_
+Once both DVWA and ELK services are running properly, it is the time to configure the monitoring of the DVW instances. The monitoring applications that we will be using are BEATS, to be specific FILEBEATS and METRICBEATS services in order to do that successfully, the configuratin yml files have to be configured; the details can be found [HERE](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS) along with both [filebeat](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS/filebeat-config.yml) and [metsicbeat](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS/metricbeat-config.yml) configuration files.
 
-_[filebeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
-_[metricbeat setup playbook](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS)_
+NOTE: The configuration files are created on ansible machine and will be dropped on the target system as part of the playbook.
+
+Lastly, the _[filebeat setup](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/filebeat-on-dvwa.yml)_ and _[metricbeat setup](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/metric-on-dvwa.yml)_ playbooks are created and have been successfully executed and it is time to check that the beats are working properly.
+
+
