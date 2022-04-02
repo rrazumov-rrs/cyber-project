@@ -3,14 +3,15 @@
 This document contains the following details:
 - Description of the Topology
 - Project Requirements
+- Virtual Network
 - Access Policies
-- VM configuration
-- Ansible Configuration
-- DVWA Configuration
-- ELK Configuration
-  - Beats in Use
-  - Machines Being Monitored
-- How to Use the Ansible Build
+- Ssh Key Authentication
+- Virtual Machine
+- Load Balancer
+- *EXTRA* IP FQDN
+- Ansible
+- System Playbooks
+- System Beats
 
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D__n Vulnerable Web Application.
 
@@ -54,7 +55,7 @@ For this project we will be creating Azure Resource Group and adding the followi
 - Two(2) DNS records
 
 
-### Virtual Network Configuration
+### Virtual Network
 
 For this project, two virtual networks have been created in the same resource group, but different resions:
 
@@ -111,7 +112,7 @@ When it comes to the Elk server NSG, the basic configuration would look like the
 |    _4096_    |    ANY    |      ANY     |        ANY        |       ANY       |    DENY    | DENY ALL TRAFFIC ON VNET                |
 
 
-### SSH Key Configuration
+### SSH Key Authentication
 
 For this project, the key-based ssh authentication is used and first step is to generate ssh keypair:
 
@@ -125,7 +126,7 @@ The virtual machines can be setup all at once, but the ssh key would need to be 
 ![Vm Reset](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-RESET.png)
 
 
-### VM configuration
+### Virtual Machines
 
 Next, we have configured virtual machines, all of the machines are created in this step and the same ssh public key is used in the process. The are three options for the VM sizes that we are using on the network.
 
@@ -151,7 +152,7 @@ Lastly, in the networking option, the virtual network and subnetworks have been 
 ![Vm Network](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/VM-NETWORK.png)
 
 
-### Load Balancer Configuration
+### Load Balancer
 
 Once all of the machines are created th eload balancer is created to distribute the load on the DVWA servers. The basic tier load balancer is being used for this setup.
 
@@ -180,13 +181,13 @@ Lastly, to ensure that the load balancer is functionig properly, the health prob
 **EXTRA** - additionally, the ELK loadbalancer can be set to receive the requests on port 80 and forward them to port 5601.
 
 
-### **EXTRA** IP Configurations
+### **EXTRA** IP FQDN
 
 The following configuration is used to create Domain Name Record for the DVWA and ELK load balancer to use in the browser:
 
 ![DNS Record](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/PUB-IP-DNS.png)
 
-### ANSIBLE Configuration
+### Ansible Container
 
 Now that the virtual network is set up and running, the services on the machines are going to be configured. First the JBOX is configured to have ansible docker container runnig to automate the setup of other machines.
 
@@ -219,7 +220,7 @@ Last step to ensure that everything is ready for next configurations is to edit 
 - _[ansible hosts file](https://github.com/rrazumov-rrs/cyber-project/blob/main/ANSIBLE/hosts)_
 
 
-### Using the Playbook
+### System Playbooks
 
 One the ansible setup and preparation is complete, the machines need to be configured to use DVWA docker container that is listening for the requests on port 80 as well as Elk server that is listening on ports 5044, 5601, and 9200.
 
@@ -252,7 +253,7 @@ As long as the processes completed without any errors, the services are installe
 
 ![Kibana web page](https://github.com/rrazumov-rrs/cyber-project/blob/main/IMAGES/KIBANA-RUNNING.png)
 
-### BEATS Configuration
+### System Beats
 
 Once both DVWA and ELK services are running properly, it is the time to configure the monitoring of the DVW instances. The monitoring applications that we will be using are BEATS, to be specific FILEBEATS and METRICBEATS services in order to do that successfully, the configuratin yml files have to be configured; the details can be found [HERE](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS) along with both [filebeat](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS/filebeat-config.yml) and [metsicbeat](https://github.com/rrazumov-rrs/cyber-project/blob/main/BEATS/metricbeat-config.yml) configuration files.
 
