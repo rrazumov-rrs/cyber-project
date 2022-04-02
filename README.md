@@ -227,7 +227,7 @@ This procedure can be done manually on each server, however, ansible container o
 
 The following example of the Ansible playbook was created to show the syntax of the yml playbook:
 
-Here is the example of [Basic](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/upgrade-basic.yml) and [Advanced](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/upgrade-advanced.yml) upgrade playbooks. 
+Here is the example of [Basic](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/upgrade-basic.yml) and [Advanced](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/upgrade-advanced.yml) upgrade playbooks.
 
 The main note to take that all of the playbook files atart with three dashes(-) on the top line as well as all indentations are with two spaces.
 
@@ -260,4 +260,4 @@ NOTE: The configuration files are created on ansible machine and will be dropped
 
 Lastly, the _[filebeat setup](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/filebeat-on-dvwa.yml)_ and _[metricbeat setup](https://github.com/rrazumov-rrs/cyber-project/tree/main/PLAYBOOKS/metric-on-dvwa.yml)_ playbooks are created and have been successfully executed and it is time to check that the beats are working properly.
 
-
+Kibana.webm
